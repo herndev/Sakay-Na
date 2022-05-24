@@ -17,7 +17,7 @@ class _HomeState extends State<Home> {
     final auth = Provider.of<AuthService>(context);
 
     return Scaffold(
-      appBar: appbar(),
+      appBar: homeAppbar(auth: auth, context: context),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
           child: Row(
@@ -26,21 +26,7 @@ class _HomeState extends State<Home> {
           Container(
             width: size.width * 0.9,
             child: Column(
-              children: [
-                Text(
-                  "Home",
-                ),
-                Container(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      await auth.signOut();
-                    },
-                    child: Text("Logout"),
-                    style: ElevatedButton.styleFrom(primary: Colors.red),
-                  ),
-                ),
-              ],
+              children: [],
             ),
           ),
         ],

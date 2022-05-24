@@ -5,6 +5,7 @@ import 'package:sakayna/components/input.dart';
 import 'package:sakayna/services/authentication.dart';
 import 'package:sakayna/services/emailChecker.dart';
 import 'package:sakayna/services/query.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 var hq = Hquery();
 
@@ -28,6 +29,13 @@ class _LoginState extends State<Login> {
     super.dispose();
     email.dispose();
     password.dispose();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setPreviousCreds();
   }
 
   @override
@@ -157,6 +165,16 @@ class _LoginState extends State<Login> {
                                         _form.currentState!.save();
                                         var _email = email.text;
 
+                                        // Check if rememberme
+                                        var pref = await SharedPreferences.getInstance();
+                                        if (rememberme) {
+                                          await pref.setString("email", _email);
+                                          await pref.setString("password", password.text);
+                                        } else {
+                                          await pref.remove("email");
+                                          await pref.remove("password");
+                                        }
+
                                         // Check if use username or email
                                         if (!isEmail(email.text)) {
                                           // Sigin anonymously to get email by username
@@ -188,11 +206,11 @@ class _LoginState extends State<Login> {
                                         var alert = "";
 
                                         if (res == null) {
-                                          if (errorMessage == "user-not-found") {
-                                            alert = "Account doesn't exist! Please sign up.";
-                                          } else {
-                                            alert = "Something went wrong";
-                                          }
+                                          // if (errorMessage == "user-not-found") {
+                                          alert = "Wrong Username or Password ";
+                                          // } else {
+                                          // alert = "Something went wrong";
+                                          // }
 
                                           ScaffoldMessenger.of(context).showSnackBar(
                                             SnackBar(
@@ -252,5 +270,11 @@ class _LoginState extends State<Login> {
               ),
             ),
           );
+  }
+
+  Future setPreviousCreds() async {
+    var pref = await SharedPreferences.getInstance();
+    email.text = pref.getString("email") ?? "";
+    password.text = pref.getString("password") ?? "";
   }
 }
