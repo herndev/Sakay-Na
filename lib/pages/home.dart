@@ -11,8 +11,18 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  var origins = ["cogon", "ustp"];
+  var origin = "cogon";
+  var destinations = ["cogon", "ustp"];
+  var destination = "ustp";
+
   @override
   Widget build(BuildContext context) {
+    AppBar appBar = AppBar(
+      title: Text('Demo'),
+    );
+    double appbarheight = appBar.preferredSize.height;
+    var statusBar = MediaQuery.of(context).viewPadding.top;
     var size = MediaQuery.of(context).size;
     final auth = Provider.of<AuthService>(context);
 
@@ -25,8 +35,83 @@ class _HomeState extends State<Home> {
         children: [
           Container(
             width: size.width * 0.9,
+            height: size.height - statusBar - appbarheight,
             child: Column(
-              children: [],
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Origin"),
+                SizedBox(
+                  height: 8,
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.amber.shade300,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(8))),
+                  child: DropdownButtonFormField(
+                    decoration: InputDecoration.collapsed(hintText: ''),
+                    value: origin,
+                    items: origins.map((type) {
+                      return DropdownMenuItem(
+                        value: type,
+                        child: Text(type),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        origin = value.toString();
+                      });
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Text("Destination"),
+                SizedBox(
+                  height: 8,
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.amber.shade300,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(8))),
+                  child: DropdownButtonFormField(
+                    decoration: InputDecoration.collapsed(hintText: ''),
+                    value: destination,
+                    items: destinations.map((type) {
+                      return DropdownMenuItem(
+                        value: type,
+                        child: Text(type),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        destination = value.toString();
+                      });
+                    },
+                  ),
+                ),
+                SizedBox(height: 15),
+                Container(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () async {},
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
+                      child: Text("Sign-In"),
+                    ),
+                    style: ElevatedButton.styleFrom(primary: Colors.cyan.shade700),
+                  ),
+                ),
+              ],
             ),
           ),
         ],

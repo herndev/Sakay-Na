@@ -223,7 +223,10 @@ class _LoginState extends State<Login> {
                                         isLoading = false;
                                       });
                                     },
-                                    child: Text("Sign-In"),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
+                                      child: Text("Sign-In"),
+                                    ),
                                     style: ElevatedButton.styleFrom(primary: Colors.cyan.shade700),
                                   ),
                                 ),
