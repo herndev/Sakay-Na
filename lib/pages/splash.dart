@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sakayna/animation/animation.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -12,7 +13,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(Duration(seconds: 5), () {
       goto();
     });
   }
@@ -23,36 +24,25 @@ class _SplashScreenState extends State<SplashScreen> {
     var size = MediaQuery.of(context).size;
 
     return Container(
-      decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/eihap_background.jpg"), fit: BoxFit.cover)),
+      // decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/eihap_background.jpg"), fit: BoxFit.cover)),
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         body: SafeArea(
           child: Center(
             child: FadeAnimation(
               1.8,
-              Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
-                direction: Axis.vertical,
+              Column(
+                // crossAxisAlignment: WrapCrossAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                        style: TextStyle(
-                          fontFamily: 'Literata',
-                          fontSize: size.width * 0.2,
-                        ),
-                        children: [
-                          TextSpan(text: "eih", style: TextStyle(color: hc.yellow, fontWeight: FontWeight.bold, letterSpacing: 2)),
-                          TextSpan(text: "a", style: TextStyle(color: hc.brown, fontWeight: FontWeight.bold, letterSpacing: 2)),
-                          TextSpan(text: "p", style: TextStyle(color: hc.yellow, fontWeight: FontWeight.bold, letterSpacing: 2)),
-                        ]),
+                  SpinKitDualRing(color: Colors.cyan.shade700),
+                  // SpinKitPouringHourglass(color: Colors.cyan.shade700),
+                  SizedBox(
+                    height: 25,
                   ),
-                  RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(style: TextStyle(fontFamily: 'Literata'), children: [
-                      TextSpan(text: "Powered By", style: TextStyle(color: hc.brown, fontSize: 10, letterSpacing: 2)),
-                      TextSpan(text: "\nSAKANAKIN", style: TextStyle(color: hc.brown, fontWeight: FontWeight.bold, fontSize: 12, letterSpacing: 2)),
-                    ]),
+                  Text(
+                    "Sakay Na",
+                    style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -64,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> goto() async {
-    Navigator.pop(context);
-    // Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
+    // Navigator.pop(context);
+    Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
   }
 }

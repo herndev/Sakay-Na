@@ -31,8 +31,9 @@ class AuthService {
     return UserData(user.uid, user.email);
   }
 
-  Stream<UserData?>? get user {
+  Stream<UserData?> get user {
     return _firebaseAuth.authStateChanges().map(_userFromFirebase);
+    // return ?? UserData(uid: "", email: "")
   }
 
   Future<UserData?> signInWithEmailAndPassword({

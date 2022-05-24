@@ -27,6 +27,7 @@ void main() async {
       debugShowCheckedModeBanner: false,
       initialRoute: '/splash', // splash
       routes: {
+        "/": (_) => AuthWrapper(),
         "/splash": (_) => SplashScreen(),
         "/home": (_) => Home(),
         "/login": (_) => Login(),
@@ -44,7 +45,7 @@ class AuthWrapper extends StatelessWidget {
       builder: (_, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           //final UserData? user = snapshot.data;
-          final UserData user = snapshot.data!;
+          final UserData user = snapshot.data ?? UserData("", null);
           // ignore: unnecessary_null_comparison
           return ((user == null) || (user != null && user.email == null)) ? Login() : Home();
         } else {
