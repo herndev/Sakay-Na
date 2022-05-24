@@ -8,7 +8,7 @@ import 'pages/home.dart';
 import 'pages/auth/login.dart';
 import 'pages/auth/register.dart';
 import 'services/authentication.dart';
-
+ 
 void main() async {
   // Add these 2 lines
   WidgetsFlutterBinding.ensureInitialized();
