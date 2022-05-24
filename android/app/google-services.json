@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "183246892791",
+    "project_id": "sakayna-94410",
+    "storage_bucket": "sakayna-94410.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:183246892791:android:bc1d311d8cd692666bedf2",
+        "android_client_info": {
+          "package_name": "com.herndev.sakayna"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "183246892791-9es3kakl1554ati54k64g70hqf04sv5f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFhoBDTfTNMMjZ55Je3IrKGM9aMNUyiZw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "183246892791-9es3kakl1554ati54k64g70hqf04sv5f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
