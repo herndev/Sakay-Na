@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Container(
       // decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/eihap_background.jpg"), fit: BoxFit.cover)),
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.cyan.shade700,
         body: SafeArea(
           child: Center(
             child: FadeAnimation(
@@ -35,15 +35,16 @@ class _SplashScreenState extends State<SplashScreen> {
                 // crossAxisAlignment: WrapCrossAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SpinKitDualRing(color: Colors.cyan.shade700),
+                  Image.asset("assets/logo.png"),
+                  // SpinKitDualRing(color: Colors.amber.shade300),
                   // SpinKitPouringHourglass(color: Colors.cyan.shade700),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  Text(
-                    "Sakay Na",
-                    style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
-                  ),
+                  // SizedBox(
+                  //   height: 25,
+                  // ),
+                  // Text(
+                  //   "Sakay Na",
+                  //   style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold, color: Colors.white),
+                  // ),
                 ],
               ),
             ),

@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sakayna/pages/register.dart';
 import 'package:sakayna/pages/splash.dart';
 
 import 'model/user.dart';
@@ -31,7 +32,16 @@ void main() async {
         "/splash": (_) => SplashScreen(),
         "/home": (_) => Home(),
         "/login": (_) => Login(),
+        "/register": (_) => Register(),
       },
+      theme: ThemeData(
+        brightness: Brightness.light,
+        appBarTheme: AppBarTheme(
+          // Deprecated
+          brightness: Brightness.dark,
+          iconTheme: IconThemeData(color: Colors.amber.shade300), // 1
+        ),
+      ),
     ),
   ));
 }

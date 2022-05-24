@@ -26,9 +26,9 @@ class _PasswordFieldState extends State<PasswordField> {
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white,
-        prefixIcon: Icon(Icons.lock, color: Colors.black),
+        prefixIcon: Icon(Icons.lock, color: Colors.amber.shade300),
         suffixIcon: GestureDetector(
-          child: Icon(pwd ? Icons.visibility_off : Icons.visibility, color: Colors.black),
+          child: Icon(pwd ? Icons.visibility_off : Icons.visibility, color: Colors.amber.shade300),
           onTap: () {
             setState(() {
               pwd = !pwd;
@@ -41,7 +41,7 @@ class _PasswordFieldState extends State<PasswordField> {
           borderRadius: BorderRadius.circular(8),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black, width: 2.0),
+          borderSide: BorderSide(color: Colors.amber.shade300, width: 2.0),
           borderRadius: BorderRadius.circular(8),
         ),
       ),
@@ -60,7 +60,7 @@ Widget emailField({@required controller, @required validator, hint: ''}) {
       fillColor: Colors.white,
       prefixIcon: Icon(
         Icons.email,
-        color: Colors.black,
+        color: Colors.amber.shade300,
       ),
       hintText: hint == '' ? "Email" : hint,
       border: OutlineInputBorder(
@@ -68,7 +68,7 @@ Widget emailField({@required controller, @required validator, hint: ''}) {
         borderRadius: BorderRadius.circular(8),
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.black, width: 2.0),
+        borderSide: BorderSide(color: Colors.amber.shade300, width: 2.0),
         borderRadius: BorderRadius.circular(8),
       ),
     ),
@@ -100,7 +100,7 @@ Widget inputField(
         borderRadius: BorderRadius.circular(8),
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.black, width: 2.0),
+        borderSide: BorderSide(color: Colors.amber.shade300, width: 2.0),
         borderRadius: BorderRadius.circular(8),
       ),
     ),
@@ -129,7 +129,7 @@ Widget inputFieldSingle({
         borderRadius: BorderRadius.circular(8),
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.black, width: 2.0),
+        borderSide: BorderSide(color: Colors.amber.shade300, width: 2.0),
         borderRadius: BorderRadius.circular(8),
       ),
     ),
@@ -180,7 +180,7 @@ Widget textAreaField(
         borderRadius: BorderRadius.circular(8),
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.black, width: 2.0),
+        borderSide: BorderSide(color: Colors.amber.shade300, width: 2.0),
         borderRadius: BorderRadius.circular(8),
       ),
     ),
@@ -203,7 +203,7 @@ Widget inputFieldNoIcon({@required controller, @required validator, @required hi
         borderRadius: BorderRadius.circular(8),
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.black, width: 2.0),
+        borderSide: BorderSide(color: Colors.amber.shade300, width: 2.0),
         borderRadius: BorderRadius.circular(8),
       ),
     ),

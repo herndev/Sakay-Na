@@ -2,24 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:sakayna/components/input.dart';
+import 'package:sakayna/components/simpledialog.dart';
 import 'package:sakayna/services/authentication.dart';
 import 'package:sakayna/services/emailChecker.dart';
 import 'package:sakayna/services/query.dart';
 
 var hq = Hquery();
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+class Register extends StatefulWidget {
+  const Register({Key? key}) : super(key: key);
 
   @override
-  State<Login> createState() => _LoginState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _LoginState extends State<Login> {
+class _RegisterState extends State<Register> {
   var email = TextEditingController();
   var password = TextEditingController();
+  var username = TextEditingController();
+  var repassword = TextEditingController();
   var _form = GlobalKey<FormState>();
-  var rememberme = false;
   var isLoading = false;
 
   @override
@@ -28,6 +30,8 @@ class _LoginState extends State<Login> {
     super.dispose();
     email.dispose();
     password.dispose();
+    repassword.dispose();
+    username.dispose();
   }
 
   @override
@@ -84,14 +88,14 @@ class _LoginState extends State<Login> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "LOGIN",
+                                  "REGISTER",
                                   style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(
                                   height: 30,
                                 ),
                                 inputField(
-                                    controller: email,
+                                    controller: username,
                                     validator: (e) {
                                       if (e == "") {
                                         return "Field can't be empty";
@@ -100,15 +104,28 @@ class _LoginState extends State<Login> {
                                       }
                                     },
                                     icon: Icon(Icons.person, color: Colors.amber.shade300),
-                                    hint: "Email / Username"),
+                                    hint: "Username"),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                emailField(
+                                  controller: email,
+                                  validator: (e) {
+                                    if (!isEmail(e) || e == "") {
+                                      return "Please provide valid email";
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                ),
                                 SizedBox(
                                   height: 15,
                                 ),
                                 PasswordField(
                                     controller: password,
                                     validator: (e) {
-                                      if (e == "") {
-                                        return "Field can't be empty";
+                                      if (e.length < 6) {
+                                        return "Password must be at least 6 characters";
                                       } else {
                                         return null;
                                       }
@@ -116,35 +133,19 @@ class _LoginState extends State<Login> {
                                 SizedBox(
                                   height: 15,
                                 ),
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      rememberme = !rememberme;
-                                    });
+                                PasswordField(
+                                  controller: repassword,
+                                  validator: (e) {
+                                    if (e != password.text) {
+                                      return "Password didn't match";
+                                    } else {
+                                      return null;
+                                    }
                                   },
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SizedBox(
-                                        height: 24.0,
-                                        width: 24.0,
-                                        child: Checkbox(
-                                            value: rememberme,
-                                            onChanged: (e) {
-                                              setState(() {
-                                                rememberme = e!;
-                                              });
-                                            }),
-                                      ),
-                                      SizedBox(
-                                        width: 8,
-                                      ),
-                                      Text("Remember me")
-                                    ],
-                                  ),
+                                  hint: "Retype-password",
                                 ),
                                 SizedBox(
-                                  height: 15,
+                                  height: 8,
                                 ),
                                 Container(
                                   width: double.infinity,
@@ -157,47 +158,37 @@ class _LoginState extends State<Login> {
                                         _form.currentState!.save();
                                         var _email = email.text;
 
-                                        // Check if use username or email
-                                        if (!isEmail(email.text)) {
-                                          // Sigin anonymously to get email by username
-                                          // ignore: unused_local_variable
-                                          var user = await auth.signInAnon();
-                                          //user.delete();
-                                          var result;
-                                          try {
-                                            var userdata = await hq.getDataByData(
-                                              "users",
-                                              "username",
-                                              email.text.toLowerCase(),
-                                            );
-                                            result = userdata;
-                                          } catch (e) {
-                                            result = null;
-                                          }
-
-                                          if (result != null) {
-                                            _email = result['email'];
-                                            await auth.signOut();
-                                          }
-                                          //user.delete();
-                                        }
-
-                                        var res = await auth.signInWithEmailAndPassword(email: _email, password: password.text);
-
+                                        var res = await auth.signUpWithEmailAndPassword(email: _email, password: password.text);
                                         var errorMessage = auth.errorMessage;
-                                        var alert = "";
 
                                         if (res == null) {
-                                          if (errorMessage == "user-not-found") {
-                                            alert = "Account doesn't exist! Please sign up.";
-                                          } else {
-                                            alert = "Something went wrong";
-                                          }
-
                                           ScaffoldMessenger.of(context).showSnackBar(
                                             SnackBar(
-                                              content: Text(alert),
+                                              content: Text(errorMessage == "email-already-in-use"
+                                                  ? "Email is already taken, try another email."
+                                                  : "Something went wrong"),
                                             ),
+                                          );
+                                        } else {
+                                          await hq.push("users", {
+                                            "username": username.text,
+                                            "email": _email,
+                                            "uid": res.uid,
+                                          });
+                                          showAlertDialog(
+                                            barrierDismissible: false,
+                                            context: context,
+                                            title: Text("Sakay Na"),
+                                            content: Text("You have successfully registered."),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () async {
+                                                  Navigator.pop(context);
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text("Ok"),
+                                              ),
+                                            ],
                                           );
                                         }
                                       }
@@ -205,7 +196,7 @@ class _LoginState extends State<Login> {
                                         isLoading = false;
                                       });
                                     },
-                                    child: Text("Sign-In"),
+                                    child: Text("Sign-Up"),
                                     style: ElevatedButton.styleFrom(primary: Colors.cyan.shade700),
                                   ),
                                 ),
@@ -215,16 +206,16 @@ class _LoginState extends State<Login> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text("Don't have an account?"),
+                                    Text("Already have an account?"),
                                     SizedBox(
                                       width: 8,
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        Navigator.pushNamed(context, "/register");
+                                        Navigator.pop(context);
                                       },
                                       child: Text(
-                                        "Create",
+                                        "Login",
                                         style: TextStyle(fontWeight: FontWeight.bold, color: Colors.cyan.shade700),
                                       ),
                                     ),
