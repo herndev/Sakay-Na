@@ -106,7 +106,7 @@ class _HomeState extends State<Home> {
                     onPressed: () async {},
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
-                      child: Text("Sign-In"),
+                      child: Text("Select Vehicle"),
                     ),
                     style: ElevatedButton.styleFrom(primary: Colors.cyan.shade700),
                   ),

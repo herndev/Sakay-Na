@@ -1,12 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sakayna/pages/register.dart';
 import 'package:sakayna/pages/splash.dart';
 
 import 'model/user.dart';
 import 'pages/home.dart';
-import 'pages/login.dart';
+import 'pages/auth/login.dart';
+import 'pages/auth/register.dart';
 import 'services/authentication.dart';
 
 void main() async {
