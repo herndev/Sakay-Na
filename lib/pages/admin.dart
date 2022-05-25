@@ -27,13 +27,10 @@ class _AdminState extends State<Admin> {
     final auth = Provider.of<AuthService>(context);
 
     return Scaffold(
-      appBar: homeAppbar(
-          auth: auth,
-          context: context,
-          title: Text(
-            "Admin Panel",
-            style: TextStyle(color: Colors.amber.shade300),
-          )),
+      appBar: adminAppbar(
+        auth: auth,
+        context: context,
+      ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
           child: Row(
@@ -42,20 +39,20 @@ class _AdminState extends State<Admin> {
           Stack(
             overflow: Overflow.visible,
             children: [
-              Positioned(
-                left: 50,
-                bottom: -150,
-                child: Image.asset(
-                  "assets/blob-amber.png",
-                ),
-              ),
-              Positioned(
-                right: 50,
-                top: -150,
-                child: Image.asset(
-                  "assets/blob-amber.png",
-                ),
-              ),
+              // Positioned(
+              //   left: 50,
+              //   bottom: -150,
+              //   child: Image.asset(
+              //     "assets/blob-amber.png",
+              //   ),
+              // ),
+              // Positioned(
+              //   right: 50,
+              //   top: -150,
+              //   child: Image.asset(
+              //     "assets/blob-amber.png",
+              //   ),
+              // ),
               Container(
                 width: size.width * 0.9,
                 height: size.height - statusBar - appbarheight,
@@ -63,20 +60,20 @@ class _AdminState extends State<Admin> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 15),
-                    Container(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, "/selectVehicle");
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
-                          child: Text("SELECT VEHICLE"),
-                        ),
-                        style: ElevatedButton.styleFrom(primary: Colors.cyan.shade700),
-                      ),
-                    ),
+                    // SizedBox(height: 15),
+                    // Container(
+                    //   width: double.infinity,
+                    //   child: ElevatedButton(
+                    //     onPressed: () {
+                    //       Navigator.pushNamed(context, "/selectVehicle");
+                    //     },
+                    //     child: Padding(
+                    //       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
+                    //       child: Text("SELECT VEHICLE"),
+                    //     ),
+                    //     style: ElevatedButton.styleFrom(primary: Colors.cyan.shade700),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
