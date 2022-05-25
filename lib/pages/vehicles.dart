@@ -27,7 +27,7 @@ class _VehiclesState extends State<Vehicles> {
     final auth = Provider.of<AuthService>(context);
 
     return Scaffold(
-      appBar: appbar(title: "Locations"),
+      appBar: appbar(title: "Vehicles"),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
           child: Row(
