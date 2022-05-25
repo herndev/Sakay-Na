@@ -3,14 +3,14 @@ import 'package:provider/provider.dart';
 import 'package:sakayna/components/appbar.dart';
 import 'package:sakayna/services/authentication.dart';
 
-class Locations extends StatefulWidget {
-  const Locations({Key? key}) : super(key: key);
+class Vehicles extends StatefulWidget {
+  const Vehicles({Key? key}) : super(key: key);
 
   @override
-  State<Locations> createState() => _LocationsState();
+  State<Vehicles> createState() => _VehiclesState();
 }
 
-class _LocationsState extends State<Locations> {
+class _VehiclesState extends State<Vehicles> {
   var origins = ["cogon", "ustp"];
   var origin = "cogon";
   var destinations = ["cogon", "ustp"];
