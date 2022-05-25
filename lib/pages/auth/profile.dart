@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
@@ -17,10 +18,9 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   var email = TextEditingController();
-  var password = TextEditingController();
   var username = TextEditingController();
-  var repassword = TextEditingController();
   var _form = GlobalKey<FormState>();
   var isLoading = false;
 
@@ -29,9 +29,14 @@ class _ProfileState extends State<Profile> {
     // TODO: implement dispose
     super.dispose();
     email.dispose();
-    password.dispose();
-    repassword.dispose();
     username.dispose();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setProfile();
   }
 
   @override
@@ -82,6 +87,33 @@ class _ProfileState extends State<Profile> {
                               "assets/blob-amber.png",
                             ),
                           ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 15.0),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.arrow_back,
+                                    color: Colors.amber.shade300,
+                                  ),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Text(
+                                    "Back",
+                                    style: TextStyle(
+                                      color: Colors.amber.shade300,
+                                      fontSize: 21,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
                           Form(
                             key: _form,
                             child: Column(
@@ -108,42 +140,50 @@ class _ProfileState extends State<Profile> {
                                 SizedBox(
                                   height: 15,
                                 ),
-                                emailField(
-                                  controller: email,
-                                  validator: (e) {
-                                    if (!isEmail(e) || e == "") {
-                                      return "Please provide valid email";
-                                    } else {
-                                      return null;
-                                    }
-                                  },
-                                ),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                PasswordField(
-                                    controller: password,
-                                    validator: (e) {
-                                      if (e.length < 6) {
-                                        return "Password must be at least 6 characters";
-                                      } else {
-                                        return null;
-                                      }
-                                    }),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                PasswordField(
-                                  controller: repassword,
-                                  validator: (e) {
-                                    if (e != password.text) {
-                                      return "Password didn't match";
-                                    } else {
-                                      return null;
-                                    }
-                                  },
-                                  hint: "Retype-password",
-                                ),
+                                disabledField(
+                                    controller: email,
+                                    validator: null,
+                                    icon: Icon(
+                                      Icons.email,
+                                      color: Colors.amber.shade300,
+                                    ),
+                                    hint: "Email"),
+                                // emailField(
+                                //   controller: email,
+                                //   validator: (e) {
+                                //     if (!isEmail(e) || e == "") {
+                                //       return "Please provide valid email";
+                                //     } else {
+                                //       return null;
+                                //     }
+                                //   },
+                                // ),
+                                // SizedBox(
+                                //   height: 15,
+                                // ),
+                                // PasswordField(
+                                //     controller: password,
+                                //     validator: (e) {
+                                //       if (e.length < 6) {
+                                //         return "Password must be at least 6 characters";
+                                //       } else {
+                                //         return null;
+                                //       }
+                                //     }),
+                                // SizedBox(
+                                //   height: 15,
+                                // ),
+                                // PasswordField(
+                                //   controller: repassword,
+                                //   validator: (e) {
+                                //     if (e != password.text) {
+                                //       return "Password didn't match";
+                                //     } else {
+                                //       return null;
+                                //     }
+                                //   },
+                                //   hint: "Retype-password",
+                                // ),
                                 SizedBox(
                                   height: 8,
                                 ),
@@ -158,39 +198,27 @@ class _ProfileState extends State<Profile> {
                                         _form.currentState!.save();
                                         var _email = email.text;
 
-                                        var res = await auth.signUpWithEmailAndPassword(email: _email, password: password.text);
-                                        var errorMessage = auth.errorMessage;
+                                        var res = await hq.getDataByData("users", "uid", _firebaseAuth.currentUser!.uid);
+                                        await hq.update(
+                                          "users",
+                                          res['id'],
+                                          {"username": username.text},
+                                        );
 
-                                        if (res == null) {
-                                          ScaffoldMessenger.of(context).showSnackBar(
-                                            SnackBar(
-                                              content: Text(errorMessage == "email-already-in-use"
-                                                  ? "Email is already taken, try another email."
-                                                  : "Something went wrong"),
+                                        showAlertDialog(
+                                          barrierDismissible: false,
+                                          context: context,
+                                          title: Text("Sakay Na"),
+                                          content: Text("Username successfully updated."),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () async {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text("Ok"),
                                             ),
-                                          );
-                                        } else {
-                                          await hq.push("users", {
-                                            "username": username.text,
-                                            "email": _email,
-                                            "uid": res.uid,
-                                          });
-                                          showAlertDialog(
-                                            barrierDismissible: false,
-                                            context: context,
-                                            title: Text("Sakay Na"),
-                                            content: Text("You have successfully registered."),
-                                            actions: [
-                                              TextButton(
-                                                onPressed: () async {
-                                                  Navigator.pop(context);
-                                                  Navigator.pop(context);
-                                                },
-                                                child: Text("Ok"),
-                                              ),
-                                            ],
-                                          );
-                                        }
+                                          ],
+                                        );
                                       }
                                       setState(() {
                                         isLoading = false;
@@ -214,5 +242,17 @@ class _ProfileState extends State<Profile> {
               ),
             ),
           );
+  }
+
+  Future setProfile() async {
+    setState(() {
+      isLoading = true;
+    });
+    var res = await hq.getDataByData("users", "uid", _firebaseAuth.currentUser!.uid);
+    email.text = res['email'];
+    username.text = res['username'];
+    setState(() {
+      isLoading = false;
+    });
   }
 }

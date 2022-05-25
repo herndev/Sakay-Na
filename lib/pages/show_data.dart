@@ -46,9 +46,24 @@ class _ShowDataState extends State<ShowData> {
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 15.0),
-                      child: Icon(
-                        Icons.arrow_back,
-                        color: Colors.amber.shade300,
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.arrow_back,
+                            color: Colors.amber.shade300,
+                          ),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Text(
+                            "Back",
+                            style: TextStyle(
+                              color: Colors.amber.shade300,
+                              fontSize: 21,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ],
                       ),
                     ),
                   ),

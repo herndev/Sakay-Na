@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sakayna/pages/admin.dart';
 import 'package:sakayna/pages/auth/profile.dart';
 import 'package:sakayna/pages/select_vehicle.dart';
 import 'package:sakayna/pages/show_data.dart';
@@ -63,7 +64,11 @@ class AuthWrapper extends StatelessWidget {
           //final UserData? user = snapshot.data;
           final UserData user = snapshot.data ?? UserData("", null);
           // ignore: unnecessary_null_comparison
-          return ((user == null) || (user != null && user.email == null)) ? Login() : Home();
+          return ((user == null) || (user != null && user.email == null))
+              ? Login()
+              : user.email == "admin@admin.com"
+                  ? Admin()
+                  : Home();
         } else {
           return Scaffold(
             body: Center(
