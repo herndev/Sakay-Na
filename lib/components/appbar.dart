@@ -131,6 +131,12 @@ AppBar adminAppbar({required AuthService auth, required context, title: ""}) {
             case 'Profile':
               Navigator.pushNamed(context, "/profile");
               break;
+            case 'Locations':
+              Navigator.pushNamed(context, "/locations");
+              break;
+            case 'Vehicles':
+              Navigator.pushNamed(context, "/vehicles");
+              break;
           }
         },
         itemBuilder: (BuildContext context) {
@@ -166,11 +172,9 @@ AppBar adminAppbar({required AuthService auth, required context, title: ""}) {
 AppBar appbar({title: ""}) {
   return AppBar(
     backgroundColor: Colors.cyan.shade700,
-    title: title == ""
-        ? Text(
-            "Sakay Na",
-            style: TextStyle(color: Colors.amber.shade300),
-          )
-        : title,
+    title: Text(
+      title == "" ? "Sakay Na" : title,
+      style: TextStyle(color: Colors.amber.shade300),
+    ),
   );
 }

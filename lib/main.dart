@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sakayna/pages/admin.dart';
 import 'package:sakayna/pages/auth/profile.dart';
+import 'package:sakayna/pages/locations.dart';
 import 'package:sakayna/pages/select_vehicle.dart';
 import 'package:sakayna/pages/show_data.dart';
 import 'package:sakayna/pages/splash.dart';
+import 'package:sakayna/pages/vehicles.dart';
 
 import 'model/user.dart';
 import 'pages/home.dart';
@@ -39,6 +41,8 @@ void main() async {
         "/register": (_) => Register(),
         "/selectVehicle": (_) => SelectVehicle(),
         "/showData": (_) => ShowData(),
+        "/locations": (_) => Locations(),
+        "/vehicles": (_) => Vehicles(),
         "/profile": (_) => Profile(),
       },
       theme: ThemeData(
