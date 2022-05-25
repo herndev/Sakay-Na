@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sakayna/pages/select_vehicle.dart';
+import 'package:sakayna/pages/show_data.dart';
 import 'package:sakayna/pages/splash.dart';
 
 import 'model/user.dart';
@@ -35,6 +36,7 @@ void main() async {
         "/login": (_) => Login(),
         "/register": (_) => Register(),
         "/selectVehicle": (_) => SelectVehicle(),
+        "/showData": (_) => ShowData(),
       },
       theme: ThemeData(
         brightness: Brightness.light,

@@ -3,14 +3,14 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sakayna/animation/animation.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-class SelectVehicle extends StatefulWidget {
-  const SelectVehicle({Key? key}) : super(key: key);
+class ShowData extends StatefulWidget {
+  const ShowData({Key? key}) : super(key: key);
 
   @override
-  _SelectVehicleState createState() => _SelectVehicleState();
+  _ShowDataState createState() => _ShowDataState();
 }
 
-class _SelectVehicleState extends State<SelectVehicle> {
+class _ShowDataState extends State<ShowData> {
   var data = [
     {
       "image": "assets/tricycle.png",
@@ -27,22 +27,9 @@ class _SelectVehicleState extends State<SelectVehicle> {
   ];
 
   @override
-  void initState() {
-    super.initState();
-    Future.delayed(Duration(seconds: 1), () {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Swipe to select vehicle"),
-        ),
-      );
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     var statusBar = MediaQuery.of(context).viewPadding.top;
     var size = MediaQuery.of(context).size;
-    var _current = 0;
 
     return Scaffold(
       backgroundColor: Colors.cyan.shade700,
@@ -71,43 +58,8 @@ class _SelectVehicleState extends State<SelectVehicle> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CarouselSlider(
-                          options: CarouselOptions(
-                            initialPage: 0,
-                            height: 271.0,
-                            enlargeCenterPage: true,
-                            enableInfiniteScroll: false,
-                            onScrolled: (index) {
-                              _current = index!.toInt();
-                              setState(() {});
-                            },
-                          ),
-                          items: data.map((i) {
-                            return Builder(
-                              builder: (BuildContext context) {
-                                return Column(
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 100,
-                                      backgroundImage: AssetImage(i['image']!),
-                                    ),
-                                    // Image.asset("assets/jeep.png"),
-                                    SizedBox(
-                                      height: 8,
-                                    ),
-                                    Text(
-                                      i['vehicle']!,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 21,
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          }).toList(),
+                        Card(
+                          child: Text("Rouute: "),
                         ),
                         SizedBox(
                           height: 8,
@@ -116,9 +68,7 @@ class _SelectVehicleState extends State<SelectVehicle> {
                         Container(
                           width: double.infinity,
                           child: ElevatedButton(
-                            onPressed: () async {
-                              Navigator.pushNamed(context, "/showData");
-                            },
+                            onPressed: () async {},
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
                               child: Text(
