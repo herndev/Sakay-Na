@@ -153,7 +153,7 @@ class _LocationsState extends State<Locations> {
                     });
                     location.text = "";
                     Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("New location succesfuully created.")));
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("New location succesfully created.")));
                   },
                   child: Text("Create"),
                 ),

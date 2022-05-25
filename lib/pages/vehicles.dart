@@ -153,7 +153,7 @@ class _VehiclesState extends State<Vehicles> {
                     });
                     vehicle.text = "";
                     Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("New vehicle succesfuully created.")));
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("New vehicle succesfully created.")));
                   },
                   child: Text("Create"),
                 ),
