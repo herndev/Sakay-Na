@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sakayna/pages/select_vehicle.dart';
 import 'package:sakayna/pages/splash.dart';
 
 import 'model/user.dart';
@@ -8,7 +9,7 @@ import 'pages/home.dart';
 import 'pages/auth/login.dart';
 import 'pages/auth/register.dart';
 import 'services/authentication.dart';
- 
+
 void main() async {
   // Add these 2 lines
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,6 +34,7 @@ void main() async {
         "/home": (_) => Home(),
         "/login": (_) => Login(),
         "/register": (_) => Register(),
+        "/selectVehicle": (_) => SelectVehicle(),
       },
       theme: ThemeData(
         brightness: Brightness.light,

@@ -103,10 +103,12 @@ class _HomeState extends State<Home> {
                 Container(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () async {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/selectVehicle");
+                    },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
-                      child: Text("Select Vehicle"),
+                      child: Text("SELECT VEHICLE"),
                     ),
                     style: ElevatedButton.styleFrom(primary: Colors.cyan.shade700),
                   ),
@@ -117,6 +119,5 @@ class _HomeState extends State<Home> {
         ],
       )),
     );
-    ;
   }
 }
