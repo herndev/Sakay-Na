@@ -67,23 +67,43 @@ class _ShowDataState extends State<ShowData> {
                               children: [
                                 Text(
                                   "RESULTS",
-                                  style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold, color: Colors.cyan.shade700),
                                 ),
                                 SizedBox(height: 15),
                                 Text(
                                   "Route: ",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(height: 8),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 15.0),
+                                  child: Text(
+                                    "Origin: ",
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 15.0),
+                                  child: Text(
+                                    "Destination: ",
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                SizedBox(height: 15),
                                 Text(
                                   "Vehicle: ",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(height: 8),
                                 Text(
-                                  "Estimated arrival time: ",
+                                  "Estimated Arrival Time: ",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(height: 8),
                                 Text(
-                                  "Cost: ",
+                                  "Transport Cost: ",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),

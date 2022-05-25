@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sakayna/pages/auth/profile.dart';
 import 'package:sakayna/pages/select_vehicle.dart';
 import 'package:sakayna/pages/show_data.dart';
 import 'package:sakayna/pages/splash.dart';
@@ -37,6 +38,7 @@ void main() async {
         "/register": (_) => Register(),
         "/selectVehicle": (_) => SelectVehicle(),
         "/showData": (_) => ShowData(),
+        "/profile": (_) => Profile(),
       },
       theme: ThemeData(
         brightness: Brightness.light,

@@ -9,14 +9,14 @@ import 'package:sakayna/services/query.dart';
 
 var hq = Hquery();
 
-class Register extends StatefulWidget {
-  const Register({Key? key}) : super(key: key);
+class Profile extends StatefulWidget {
+  const Profile({Key? key}) : super(key: key);
 
   @override
-  State<Register> createState() => _RegisterState();
+  State<Profile> createState() => _ProfileState();
 }
 
-class _RegisterState extends State<Register> {
+class _ProfileState extends State<Profile> {
   var email = TextEditingController();
   var password = TextEditingController();
   var username = TextEditingController();
@@ -88,7 +88,7 @@ class _RegisterState extends State<Register> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "REGISTER",
+                                  "UPDATE PROFILE",
                                   style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(
@@ -198,43 +198,11 @@ class _RegisterState extends State<Register> {
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
-                                      child: Text("SIGN-UP"),
+                                      child: Text("UPDATE"),
                                     ),
                                     style: ElevatedButton.styleFrom(primary: Colors.cyan.shade700),
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 30,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text("Already have an account?"),
-                                    SizedBox(
-                                      width: 8,
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: Text(
-                                        "Login",
-                                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.cyan.shade700),
-                                      ),
-                                    ),
-                                  ],
-                                )
-                                // RichText(
-                                //   text: TextSpan(
-                                //     text: "Don't have an account? ",
-                                //     children: [
-                                //       TextSpan(text: "Register"),
-                                //     ],
-                                //     style: TextStyle(
-                                //       color: Colors.black,
-                                //     ),
-                                //   ),
-                                // ),
                               ],
                             ),
                           ),

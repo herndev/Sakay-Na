@@ -5,6 +5,8 @@ import 'simpledialog.dart';
 
 AppBar homeAppbar({required AuthService auth, required context, title: ""}) {
   return AppBar(
+    // shadowColor: Colors.transparent,
+    // elevation: 0,
     backgroundColor: Colors.cyan.shade700,
     title: title == ""
         ? Text(
@@ -48,6 +50,7 @@ AppBar homeAppbar({required AuthService auth, required context, title: ""}) {
                   ]);
               break;
             case 'Profile':
+              Navigator.pushNamed(context, "/profile");
               break;
           }
         },

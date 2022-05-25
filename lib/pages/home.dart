@@ -33,88 +33,107 @@ class _HomeState extends State<Home> {
           child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            width: size.width * 0.9,
-            height: size.height - statusBar - appbarheight,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("Origin"),
-                SizedBox(
-                  height: 8,
+          Stack(
+            overflow: Overflow.visible,
+            children: [
+              Positioned(
+                left: 50,
+                bottom: -150,
+                child: Image.asset(
+                  "assets/blob-amber.png",
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.amber.shade300,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(8))),
-                  child: DropdownButtonFormField(
-                    decoration: InputDecoration.collapsed(hintText: ''),
-                    value: origin,
-                    items: origins.map((type) {
-                      return DropdownMenuItem(
-                        value: type,
-                        child: Text(type),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        origin = value.toString();
-                      });
-                    },
-                  ),
+              ),
+              Positioned(
+                right: 50,
+                top: -150,
+                child: Image.asset(
+                  "assets/blob-amber.png",
                 ),
-                SizedBox(
-                  height: 15,
-                ),
-                Text("Destination"),
-                SizedBox(
-                  height: 8,
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.amber.shade300,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(8))),
-                  child: DropdownButtonFormField(
-                    decoration: InputDecoration.collapsed(hintText: ''),
-                    value: destination,
-                    items: destinations.map((type) {
-                      return DropdownMenuItem(
-                        value: type,
-                        child: Text(type),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        destination = value.toString();
-                      });
-                    },
-                  ),
-                ),
-                SizedBox(height: 15),
-                Container(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, "/selectVehicle");
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
-                      child: Text("SELECT VEHICLE"),
+              ),
+              Container(
+                width: size.width * 0.9,
+                height: size.height - statusBar - appbarheight,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Origin"),
+                    SizedBox(
+                      height: 8,
                     ),
-                    style: ElevatedButton.styleFrom(primary: Colors.cyan.shade700),
-                  ),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.amber.shade300,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(8))),
+                      child: DropdownButtonFormField(
+                        decoration: InputDecoration.collapsed(hintText: ''),
+                        value: origin,
+                        items: origins.map((type) {
+                          return DropdownMenuItem(
+                            value: type,
+                            child: Text(type),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            origin = value.toString();
+                          });
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Text("Destination"),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.amber.shade300,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(8))),
+                      child: DropdownButtonFormField(
+                        decoration: InputDecoration.collapsed(hintText: ''),
+                        value: destination,
+                        items: destinations.map((type) {
+                          return DropdownMenuItem(
+                            value: type,
+                            child: Text(type),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            destination = value.toString();
+                          });
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 15),
+                    Container(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, "/selectVehicle");
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
+                          child: Text("SELECT VEHICLE"),
+                        ),
+                        style: ElevatedButton.styleFrom(primary: Colors.cyan.shade700),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       )),
