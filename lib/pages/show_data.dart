@@ -59,20 +59,47 @@ class _ShowDataState extends State<ShowData> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Card(
-                          child: Text("Rouute: "),
-                        ),
-                        SizedBox(
-                          height: 8,
+                          child: Container(
+                            padding: EdgeInsets.all(15),
+                            width: double.infinity,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "RESULTS",
+                                  style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(height: 15),
+                                Text(
+                                  "Route: ",
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  "Vehicle: ",
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  "Estimated arrival time: ",
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  "Cost: ",
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                         SizedBox(height: 15),
                         Container(
                           width: double.infinity,
                           child: ElevatedButton(
-                            onPressed: () async {},
+                            onPressed: () async {
+                              Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
+                            },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
                               child: Text(
-                                "SELECT",
+                                "BACK TO HOME",
                                 style: TextStyle(color: Colors.black),
                               ),
                             ),
