@@ -63,65 +63,6 @@ class _AdminState extends State<Admin> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Origin"),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.amber.shade300,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.all(Radius.circular(8))),
-                      child: DropdownButtonFormField(
-                        decoration: InputDecoration.collapsed(hintText: ''),
-                        value: origin,
-                        items: origins.map((type) {
-                          return DropdownMenuItem(
-                            value: type,
-                            child: Text(type),
-                          );
-                        }).toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            origin = value.toString();
-                          });
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Text("Destination"),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.amber.shade300,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.all(Radius.circular(8))),
-                      child: DropdownButtonFormField(
-                        decoration: InputDecoration.collapsed(hintText: ''),
-                        value: destination,
-                        items: destinations.map((type) {
-                          return DropdownMenuItem(
-                            value: type,
-                            child: Text(type),
-                          );
-                        }).toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            destination = value.toString();
-                          });
-                        },
-                      ),
-                    ),
                     SizedBox(height: 15),
                     Container(
                       width: double.infinity,
