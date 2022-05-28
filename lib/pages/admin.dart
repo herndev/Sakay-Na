@@ -1,7 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sakayna/components/appbar.dart';
+import 'package:sakayna/components/simpledialog.dart';
 import 'package:sakayna/services/authentication.dart';
+import 'package:sakayna/services/query.dart';
+
+var hq = Hquery();
 
 class Admin extends StatefulWidget {
   const Admin({Key? key}) : super(key: key);
@@ -11,10 +16,14 @@ class Admin extends StatefulWidget {
 }
 
 class _AdminState extends State<Admin> {
-  var origins = ["cogon", "ustp"];
-  var origin = "cogon";
-  var destinations = ["cogon", "ustp"];
-  var destination = "ustp";
+  // var origins = ["cogon", "ustp"];
+  // var origin = "cogon";
+  // var destinations = ["cogon", "ustp"];
+  // var destination = "ustp";
+  var locations = [];
+  var selectedLocation = "";
+  var vehicles = [];
+  var selectedVehicle = "";
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +90,131 @@ class _AdminState extends State<Admin> {
           ),
         ],
       )),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.cyan[700],
+        foregroundColor: Colors.amber.shade300,
+        onPressed: () async {
+          await showAlertDialog(
+              context: context,
+              title: Text("New Route"),
+              content: StreamBuilder<QuerySnapshot>(
+                stream: hq.getSnap("locations"),
+                builder: (_, locationsSnap) {
+                  if (locationsSnap.connectionState == ConnectionState.active) {
+                    return StreamBuilder<QuerySnapshot>(
+                      stream: hq.getSnap("vehicles"),
+                      builder: (_, vehiclesSnap) {
+                        if (vehiclesSnap.connectionState == ConnectionState.active) {
+                          var locsnap = locationsSnap.data!.docs;
+                          var vehsnap = vehiclesSnap.data!.docs;
+                          var vehicleData = {};
+
+                          // List<Widget> locationWidgets = [];
+
+                          for (var item in locsnap) {
+                            locations.add(item['location']);
+                          }
+                          for (var item in vehsnap) {
+                            vehicles.add(item['vehicle']);
+                            vehicleData[item['vehicle']] = item['image'];
+                          }
+
+                          if (locations.length == 0 || vehicles.length == 0) {
+                            // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Create locations and vehicles first.")));
+                            Navigator.pop(context);
+                            return Wrap(
+                              runSpacing: 8,
+                              children: [],
+                            );
+                          }
+
+                          selectedLocation = locations[0];
+                          selectedVehicle = vehicles[0];
+
+                          return Wrap(
+                            runSpacing: 8,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                      // color: Colors,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.all(Radius.circular(8))),
+                                child: DropdownButtonFormField(
+                                  value: selectedLocation,
+                                  items: locations.map((type) {
+                                    return DropdownMenuItem(
+                                      value: type,
+                                      child: Text(type),
+                                    );
+                                  }).toList(),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      selectedLocation = value.toString();
+                                    });
+                                  },
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                      // color: Colors,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.all(Radius.circular(8))),
+                                child: DropdownButtonFormField(
+                                  value: selectedVehicle,
+                                  items: vehicles.map((type) {
+                                    return DropdownMenuItem(
+                                      value: type,
+                                      child: Text(type),
+                                    );
+                                  }).toList(),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      selectedVehicle = value.toString();
+                                    });
+                                  },
+                                ),
+                              ),
+                              Image.asset(vehicleData[selectedVehicle]),
+                            ],
+                          );
+                        } else {
+                          return Container();
+                        }
+                      },
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Cancel"),
+                ),
+                TextButton(
+                  onPressed: () {
+                    // hq.push("locations", {
+                    //   "location": location.text,
+                    // });
+                    // location.text = "";
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("New route succesfully created.")));
+                  },
+                  child: Text("Create"),
+                ),
+              ]);
+        },
+        child: Icon(Icons.add),
+      ),
     );
   }
 }

@@ -18,6 +18,14 @@ class Vehicles extends StatefulWidget {
 
 class _VehiclesState extends State<Vehicles> {
   var vehicle = TextEditingController();
+  var typeSelection = [
+    "assets/jeep.png",
+    "assets/tricycle.png",
+    "assets/sikad.png",
+    "assets/taxi.png",
+    "assets/motor.png",
+  ];
+  var typeSelected = "assets/jeep.png";
 
   @override
   Widget build(BuildContext context) {
@@ -62,10 +70,40 @@ class _VehiclesState extends State<Vehicles> {
                               child: ElevatedButton(
                                 onPressed: () {
                                   vehicle.text = item['vehicle'];
+                                  typeSelected = item['image'];
+
                                   showAlertDialog(
                                       context: context,
                                       title: Text("Edit Category"),
-                                      content: textAreaField(controller: vehicle, hint: "Vehicle", max: 1, validator: null),
+                                      content: Wrap(
+                                        runSpacing: 8,
+                                        children: [
+                                          textAreaField(controller: vehicle, hint: "Vehicle", max: 1, validator: null),
+                                          Container(
+                                            padding: EdgeInsets.symmetric(horizontal: 10),
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                  // color: Colors,
+                                                  width: 1,
+                                                ),
+                                                borderRadius: BorderRadius.all(Radius.circular(8))),
+                                            child: DropdownButtonFormField(
+                                              value: typeSelected,
+                                              items: typeSelection.map((type) {
+                                                return DropdownMenuItem(
+                                                  value: type,
+                                                  child: Image.asset(type),
+                                                );
+                                              }).toList(),
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  typeSelected = value.toString();
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                       actions: [
                                         TextButton(
                                           onPressed: () {
@@ -81,9 +119,11 @@ class _VehiclesState extends State<Vehicles> {
                                               item.id,
                                               {
                                                 "vehicle": vehicle.text,
+                                                "image": typeSelected,
                                               },
                                             );
                                             vehicle.text = "";
+                                            typeSelected = typeSelection[0];
                                             Navigator.pop(context);
                                             Navigator.pop(context);
                                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Vehicle Updated")));
@@ -135,10 +175,39 @@ class _VehiclesState extends State<Vehicles> {
         foregroundColor: Colors.amber.shade300,
         onPressed: () async {
           vehicle.text = "";
+          typeSelected = typeSelection[0];
           await showAlertDialog(
               context: context,
               title: Text("New Vehicle"),
-              content: textAreaField(controller: vehicle, hint: "Vehicle", max: 1, validator: null),
+              content: Wrap(
+                runSpacing: 8,
+                children: [
+                  textAreaField(controller: vehicle, hint: "Vehicle", max: 1, validator: null),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          // color: Colors,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(8))),
+                    child: DropdownButtonFormField(
+                      value: typeSelected,
+                      items: typeSelection.map((type) {
+                        return DropdownMenuItem(
+                          value: type,
+                          child: Image.asset(type),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          typeSelected = value.toString();
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
               actions: [
                 TextButton(
                   onPressed: () {
@@ -150,8 +219,11 @@ class _VehiclesState extends State<Vehicles> {
                   onPressed: () {
                     hq.push("vehicles", {
                       "vehicle": vehicle.text,
+                      "image": typeSelected,
                     });
+
                     vehicle.text = "";
+                    typeSelected = typeSelection[0];
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("New vehicle succesfully created.")));
                   },
