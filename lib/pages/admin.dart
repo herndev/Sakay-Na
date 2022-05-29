@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sakayna/components/appbar.dart';
+import 'package:sakayna/components/input.dart';
 import 'package:sakayna/components/simpledialog.dart';
 import 'package:sakayna/services/authentication.dart';
 import 'package:sakayna/services/query.dart';
@@ -24,6 +25,8 @@ class _AdminState extends State<Admin> {
   var selectedLocation = "";
   var vehicles = [];
   var selectedVehicle = "";
+  var estimatedTime = TextEditingController();
+  var transportCost = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +113,8 @@ class _AdminState extends State<Admin> {
                           var vehicleData = {};
 
                           // List<Widget> locationWidgets = [];
-
+                          locations = [];
+                          vehicles = [];
                           for (var item in locsnap) {
                             locations.add(item['location']);
                           }
@@ -142,19 +146,33 @@ class _AdminState extends State<Admin> {
                                       width: 1,
                                     ),
                                     borderRadius: BorderRadius.all(Radius.circular(8))),
-                                child: DropdownButtonFormField(
-                                  value: selectedLocation,
-                                  items: locations.map((type) {
-                                    return DropdownMenuItem(
-                                      value: type,
-                                      child: Text(type),
-                                    );
-                                  }).toList(),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      selectedLocation = value.toString();
-                                    });
-                                  },
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    Text(
+                                      "Origin",
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                    DropdownButtonFormField(
+                                      value: selectedLocation,
+                                      items: locations.map((type) {
+                                        return DropdownMenuItem(
+                                          value: type,
+                                          child: Text(type),
+                                        );
+                                      }).toList(),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          selectedLocation = value.toString();
+                                        });
+                                      },
+                                    ),
+                                  ],
                                 ),
                               ),
                               Container(
@@ -165,31 +183,47 @@ class _AdminState extends State<Admin> {
                                       width: 1,
                                     ),
                                     borderRadius: BorderRadius.all(Radius.circular(8))),
-                                child: DropdownButtonFormField(
-                                  value: selectedVehicle,
-                                  items: vehicles.map((type) {
-                                    return DropdownMenuItem(
-                                      value: type,
-                                      child: Text(type),
-                                    );
-                                  }).toList(),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      selectedVehicle = value.toString();
-                                    });
-                                  },
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    Text(
+                                      "Destination",
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                    DropdownButtonFormField(
+                                      value: selectedVehicle,
+                                      items: vehicles.map((type) {
+                                        return DropdownMenuItem(
+                                          value: type,
+                                          child: Text(type),
+                                        );
+                                      }).toList(),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          selectedVehicle = value.toString();
+                                        });
+                                      },
+                                    ),
+                                  ],
                                 ),
                               ),
-                              Image.asset(vehicleData[selectedVehicle]),
+                              inputFieldNoIcon(controller: estimatedTime, validator: null, hint: "Estimated Arrival Time"),
+                              inputFieldNoIcon(controller: transportCost, validator: null, hint: "Transport Cost "),
+                              // Image.asset(vehicleData[selectedVehicle]),
                             ],
                           );
                         } else {
-                          return Container();
+                          return Wrap();
                         }
                       },
                     );
                   } else {
-                    return Container();
+                    return Wrap();
                   }
                 },
               ),
@@ -201,10 +235,14 @@ class _AdminState extends State<Admin> {
                   child: Text("Cancel"),
                 ),
                 TextButton(
-                  onPressed: () {
-                    // hq.push("locations", {
-                    //   "location": location.text,
-                    // });
+                  onPressed: () async {
+                    await hq.push("routes", {
+                      "origin": "",
+                      "destination": "",
+                      "vehicle": selectedVehicle,
+                      "estimated_time": estimatedTime.text,
+                      "transport_cost": transportCost.text,
+                    });
                     // location.text = "";
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("New route succesfully created.")));
