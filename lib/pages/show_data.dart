@@ -167,5 +167,11 @@ class _ShowDataState extends State<ShowData> {
           );
   }
 
-  Future getOutput() async {}
+  Future getOutput() async {
+    setState(() => isLoading = true);
+    var route = await hq.getDataByID("routes", widget.route);
+    estimatedTime = route['estimated_time'];
+    transportCost = route['transport_cost'];
+    setState(() => isLoading = false);
+  }
 }
