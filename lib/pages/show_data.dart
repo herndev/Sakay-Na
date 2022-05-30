@@ -14,130 +14,152 @@ class ShowData extends StatefulWidget {
 }
 
 class _ShowDataState extends State<ShowData> {
+  var isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getOutput();
+  }
+
   @override
   Widget build(BuildContext context) {
     var statusBar = MediaQuery.of(context).viewPadding.top;
     var size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      backgroundColor: Colors.cyan.shade700,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Stack(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 15.0),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.arrow_back,
-                            color: Colors.amber.shade300,
-                          ),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Text(
-                            "Back",
-                            style: TextStyle(
-                              color: Colors.amber.shade300,
-                              fontSize: 21,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: size.width * 0.8,
-                    height: size.height - statusBar,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+    return isLoading
+        ? Container(
+            child: Scaffold(
+              backgroundColor: Colors.cyan.shade700,
+              body: Center(
+                child: SpinKitRing(
+                  color: Colors.amber.shade300,
+                  size: 50.0,
+                ),
+              ),
+            ),
+          )
+        : Scaffold(
+            backgroundColor: Colors.cyan.shade700,
+            body: SafeArea(
+              child: SingleChildScrollView(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Stack(
                       children: [
-                        Card(
-                          child: Container(
-                            padding: EdgeInsets.all(15),
-                            width: double.infinity,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 15.0),
+                            child: Row(
                               children: [
-                                Text(
-                                  "RESULTS",
-                                  style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold, color: Colors.cyan.shade700),
+                                Icon(
+                                  Icons.arrow_back,
+                                  color: Colors.amber.shade300,
                                 ),
-                                SizedBox(height: 15),
-                                Text(
-                                  "Route: ",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                SizedBox(
+                                  width: 8,
                                 ),
-                                SizedBox(height: 8),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 15.0),
-                                  child: Text(
-                                    "Origin: ",
-                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                Text(
+                                  "Back",
+                                  style: TextStyle(
+                                    color: Colors.amber.shade300,
+                                    fontSize: 21,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                ),
-                                SizedBox(height: 8),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 15.0),
-                                  child: Text(
-                                    "Destination: ",
-                                    style: TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                SizedBox(height: 15),
-                                Text(
-                                  "Vehicle: ",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(height: 8),
-                                Text(
-                                  "Estimated Arrival Time: ",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(height: 8),
-                                Text(
-                                  "Transport Cost: ",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
+                                )
                               ],
                             ),
                           ),
                         ),
-                        SizedBox(height: 15),
                         Container(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
-                              child: Text(
-                                "BACK TO HOME",
-                                style: TextStyle(color: Colors.black),
+                          width: size.width * 0.8,
+                          height: size.height - statusBar,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Card(
+                                child: Container(
+                                  padding: EdgeInsets.all(15),
+                                  width: double.infinity,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "RESULTS",
+                                        style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold, color: Colors.cyan.shade700),
+                                      ),
+                                      SizedBox(height: 15),
+                                      Text(
+                                        "Route: ",
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(height: 8),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 15.0),
+                                        child: Text(
+                                          "Origin: ",
+                                          style: TextStyle(fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      SizedBox(height: 8),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 15.0),
+                                        child: Text(
+                                          "Destination: ",
+                                          style: TextStyle(fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      SizedBox(height: 15),
+                                      Text(
+                                        "Vehicle: ",
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(height: 8),
+                                      Text(
+                                        "Estimated Arrival Time: ",
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(height: 8),
+                                      Text(
+                                        "Transport Cost: ",
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
-                            ),
-                            style: ElevatedButton.styleFrom(primary: Colors.amber.shade300),
+                              SizedBox(height: 15),
+                              Container(
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  onPressed: () async {
+                                    Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
+                                    child: Text(
+                                      "BACK TO HOME",
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  ),
+                                  style: ElevatedButton.styleFrom(primary: Colors.amber.shade300),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
+            ),
+          );
   }
+
+  void getOutput() {}
 }
