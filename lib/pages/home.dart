@@ -57,7 +57,12 @@ class _HomeState extends State<Home> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Origin"),
+                    Text(
+                      "ORIGIN",
+                      style: TextStyle(
+                        color: Colors.grey,
+                      ),
+                    ),
                     SizedBox(
                       height: 8,
                     ),
@@ -88,7 +93,12 @@ class _HomeState extends State<Home> {
                     SizedBox(
                       height: 15,
                     ),
-                    Text("Destination"),
+                    Text(
+                      "DESTINATION",
+                      style: TextStyle(
+                        color: Colors.grey,
+                      ),
+                    ),
                     SizedBox(
                       height: 8,
                     ),
