@@ -80,7 +80,7 @@ class _HomeState extends State<Home> {
                       selectedLocation = locations[0];
                     }
                     if (selectedLocation2 == "") {
-                      selectedLocation2 = locations[0];
+                      selectedLocation2 = locations[1];
                     }
 
                     return Container(
