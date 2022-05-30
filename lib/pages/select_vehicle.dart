@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sakayna/animation/animation.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:sakayna/pages/show_data.dart';
 import 'package:sakayna/services/query.dart';
 
 var hq = Hquery();
@@ -145,6 +146,12 @@ class _SelectVehicleState extends State<SelectVehicle> {
                                   width: double.infinity,
                                   child: ElevatedButton(
                                     onPressed: () async {
+                                      var route = MaterialPageRoute(
+                                          builder: (_) => ShowData(
+                                              // origin: selectedLocation,
+                                              // destination: selectedLocation2,
+                                              ));
+                                      Navigator.push(context, route);
                                       Navigator.pushNamed(context, "/showData");
                                     },
                                     child: Padding(
