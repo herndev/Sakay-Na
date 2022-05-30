@@ -4,7 +4,9 @@ import 'package:sakayna/animation/animation.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class SelectVehicle extends StatefulWidget {
-  const SelectVehicle({Key? key}) : super(key: key);
+  final origin;
+  final destination;
+  const SelectVehicle({this.origin, this.destination, Key? key}) : super(key: key);
 
   @override
   _SelectVehicleState createState() => _SelectVehicleState();
