@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sakayna/animation/animation.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:sakayna/services/query.dart';
+
+var hq = Hquery();
 
 class ShowData extends StatefulWidget {
   final origin;
   final destination;
   final vehicle;
-  const ShowData({this.vehicle, this.origin, this.destination, Key? key}) : super(key: key);
+  final route;
+  const ShowData({this.route, this.vehicle, this.origin, this.destination, Key? key}) : super(key: key);
 
   @override
   _ShowDataState createState() => _ShowDataState();
@@ -15,6 +19,8 @@ class ShowData extends StatefulWidget {
 
 class _ShowDataState extends State<ShowData> {
   var isLoading = false;
+  var estimatedTime = "";
+  var transportCost = "";
 
   @override
   void initState() {
@@ -101,7 +107,7 @@ class _ShowDataState extends State<ShowData> {
                                       Padding(
                                         padding: const EdgeInsets.only(left: 15.0),
                                         child: Text(
-                                          "Origin: ",
+                                          "Origin: ${widget.origin}",
                                           style: TextStyle(fontWeight: FontWeight.bold),
                                         ),
                                       ),
@@ -109,23 +115,23 @@ class _ShowDataState extends State<ShowData> {
                                       Padding(
                                         padding: const EdgeInsets.only(left: 15.0),
                                         child: Text(
-                                          "Destination: ",
+                                          "Destination: ${widget.destination}",
                                           style: TextStyle(fontWeight: FontWeight.bold),
                                         ),
                                       ),
                                       SizedBox(height: 15),
                                       Text(
-                                        "Vehicle: ",
+                                        "Vehicle: ${widget.vehicle}",
                                         style: TextStyle(fontWeight: FontWeight.bold),
                                       ),
                                       SizedBox(height: 8),
                                       Text(
-                                        "Estimated Arrival Time: ",
+                                        "Estimated Arrival Time: $estimatedTime",
                                         style: TextStyle(fontWeight: FontWeight.bold),
                                       ),
                                       SizedBox(height: 8),
                                       Text(
-                                        "Transport Cost: ",
+                                        "Transport Cost: $transportCost",
                                         style: TextStyle(fontWeight: FontWeight.bold),
                                       ),
                                     ],
@@ -161,5 +167,5 @@ class _ShowDataState extends State<ShowData> {
           );
   }
 
-  void getOutput() {}
+  Future getOutput() async {}
 }

@@ -135,11 +135,15 @@ class _SelectVehicleState extends State<SelectVehicle> {
                                     onPressed: () async {
                                       var route = MaterialPageRoute(
                                           builder: (_) => ShowData(
-                                              // origin: selectedLocation,
-                                              // destination: selectedLocation2,
+                                                origin: widget.origin,
+                                                destination: widget.destination,
+                                                vehicle: data[_current]['vehicle'],
+                                                route: data[_current]['route'],
+                                                // origin: selectedLocation,
+                                                // destination: selectedLocation2,
                                               ));
                                       Navigator.push(context, route);
-                                      Navigator.pushNamed(context, "/showData");
+                                      // Navigator.pushNamed(context, "/showData");
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
@@ -172,33 +176,35 @@ class _SelectVehicleState extends State<SelectVehicle> {
       for (var route in routes) {
         if (route['destination'] == widget.destination) {
           filteredRoutes.add(route);
-          var vehicles = await hq.getAllDataByData("vehicles", "vehicle", route['vehicle']);
-          for (var vehicle in vehicles) {
-            data.add({
-              "image": vehicle['image'],
-              "vehicle": vehicle['vehicle'],
-            });
-          }
-          if (vehicles != []) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text("Swipe to select vehicle"),
-              ),
-            );
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text("No available vehicle for this route"),
-              ),
-            );
-          }
         }
       }
 
-      print("###########################");
-      print("$filteredRoutes");
-      print("###########################");
+      for (var route in filteredRoutes) {
+        var vehicles = await hq.getAllDataByData("vehicles", "vehicle", route['vehicle']);
+        for (var vehicle in vehicles) {
+          data.add({
+            "image": vehicle['image'],
+            "vehicle": vehicle['vehicle'],
+            "route": route['id'],
+          });
+        }
+      }
     }
+
+    if (data != []) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Swipe to select vehicle"),
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("No available vehicle for this route"),
+        ),
+      );
+    }
+
     setState(() => isLoading = false);
   }
 }
