@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sakayna/animation/animation.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:sakayna/services/query.dart';
+
+var hq = Hquery();
 
 class SelectVehicle extends StatefulWidget {
   final origin;
@@ -27,6 +30,7 @@ class _SelectVehicleState extends State<SelectVehicle> {
       "vehicle": "Padyak",
     },
   ];
+  var isLoading = false;
 
   @override
   void initState() {
@@ -38,6 +42,7 @@ class _SelectVehicleState extends State<SelectVehicle> {
         ),
       );
     });
+    isRouteValid();
   }
 
   @override
@@ -156,5 +161,23 @@ class _SelectVehicleState extends State<SelectVehicle> {
         ),
       ),
     );
+  }
+
+  Future isRouteValid() async {
+    setState(() => isLoading = true);
+    var routes = await hq.getAllDataByData("routes", "origin", widget.origin);
+    if (routes != []) {
+      var filteredRoutes = [];
+      for (var route in routes) {
+        if (route['destination'] == widget.destination) {
+          filteredRoutes.add(route);
+        }
+      }
+
+      print("###########################");
+      print("$filteredRoutes");
+      print("###########################");
+    }
+    setState(() => isLoading = false);
   }
 }
