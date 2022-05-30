@@ -17,20 +17,7 @@ class SelectVehicle extends StatefulWidget {
 }
 
 class _SelectVehicleState extends State<SelectVehicle> {
-  var data = [
-    // {
-    //   "image": "assets/tricycle.png",
-    //   "vehicle": "Tricycle",
-    // },
-    // {
-    //   "image": "assets/jeep.png",
-    //   "vehicle": "R1 Jeep",
-    // },
-    // {
-    //   "image": "assets/sikad.png",
-    //   "vehicle": "Padyak",
-    // },
-  ];
+  var data = [];
   var isLoading = false;
 
   @override

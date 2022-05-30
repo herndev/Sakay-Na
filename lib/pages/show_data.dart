@@ -4,28 +4,16 @@ import 'package:sakayna/animation/animation.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class ShowData extends StatefulWidget {
-  const ShowData({Key? key}) : super(key: key);
+  final origin;
+  final destination;
+  final vehicle;
+  const ShowData({this.vehicle, this.origin, this.destination, Key? key}) : super(key: key);
 
   @override
   _ShowDataState createState() => _ShowDataState();
 }
 
 class _ShowDataState extends State<ShowData> {
-  var data = [
-    {
-      "image": "assets/tricycle.png",
-      "vehicle": "Tricycle",
-    },
-    {
-      "image": "assets/jeep.png",
-      "vehicle": "R1 Jeep",
-    },
-    {
-      "image": "assets/sikad.png",
-      "vehicle": "Padyak",
-    },
-  ];
-
   @override
   Widget build(BuildContext context) {
     var statusBar = MediaQuery.of(context).viewPadding.top;
